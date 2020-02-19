@@ -1,0 +1,48 @@
+work_dir: 'results/019_base_tq_ta_rank_acc4_weightedbce'
+
+data:
+  idx_fold: -1
+  num_folds: 5
+  train_df_path: 'data/train_df.csv'
+  test_df_path: 'data/test_df.csv'
+  max_sequence_length: 512
+  max_title_length: 50
+  max_question_length: 459
+  max_answer_length: 459
+  head_tail: True
+  rank_transform: True
+
+model:
+  num_bert: 2
+  name: 'bert-base-uncased'
+  num_samples: 5
+  num_hidden_layers: 26
+
+train:
+  batch_size: 2
+  num_epochs: 5
+  warmup_num_epochs: 1
+  early_stop_patience: 5
+  mixup_alpha: 0
+  fp16: True
+  accumulation_steps: 4
+
+test:
+  batch_size: 4
+
+loss:
+  name: 'WeightedBCE'
+
+optimizer:
+  name: 'AdamW'
+  params:
+    encoder_lr: 1.0e-5
+    decoder_lr: 1.0e-3
+
+scheduler:
+  name: 'warmup'
+  params:
+    warmup: 200
+
+num_workers: 0
+device: 'cuda'

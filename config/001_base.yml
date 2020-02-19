@@ -1,0 +1,37 @@
+work_dir: 'results/001_base'
+
+data:
+  idx_fold: -1
+  num_folds: 5
+  train_df_path: 'data/train_df.csv'
+  test_df_path: 'data/test_df.csv'
+  max_sequence_length: 500
+  max_title_length: 26
+  max_question_length: 260
+  max_answer_length: 210
+  head_tail: True
+
+model:
+  name: 'bert-base-uncased'
+
+train:
+  batch_size: 4
+  num_epochs: 5
+  early_stop_patience: 5
+  mixup_alpha: 0
+
+test:
+  batch_size: 4
+
+optimizer:
+  name: 'AdamW'
+  params:
+    lr: 2.0e-5
+
+scheduler:
+  name: 'warmup'
+  params:
+    warmup: 200
+
+num_workers: 0
+device: 'cuda'

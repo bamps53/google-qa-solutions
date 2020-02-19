@@ -1,0 +1,40 @@
+work_dir: 'results/006_base_bs8_fp16_maxlen512_finetune_multisample'
+
+data:
+  idx_fold: -1
+  num_folds: 5
+  train_df_path: 'data/train_df.csv'
+  test_df_path: 'data/test_df.csv'
+  max_sequence_length: 512
+  max_title_length: 26
+  max_question_length: 272
+  max_answer_length: 210
+  head_tail: True
+
+model:
+  name: 'bert-base-uncased'
+  num_samples: 5
+
+train:
+  batch_size: 8
+  num_epochs: 5
+  warmup_num_epochs: 3
+  early_stop_patience: 5
+  mixup_alpha: 0
+  fp16: True
+
+test:
+  batch_size: 4
+
+optimizer:
+  name: 'AdamW'
+  params:
+    lr: 2.0e-5
+
+scheduler:
+  name: 'warmup'
+  params:
+    warmup: 200
+
+num_workers: 0
+device: 'cuda'
